@@ -26,5 +26,11 @@ export class chatService{
     isMember():boolean{
         return true;
     }
+    checkDuplicate(u:string):boolean{
+        if(this.arrUsers.find((e)=>e==u))
+        return true;
+        else 
+        return false;
+    }
 
 }

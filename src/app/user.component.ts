@@ -13,12 +13,15 @@ constructor(private cs:chatService,private chls:channelService){}
 
 sendMessage(el:string)
 {
-    console.log(this.chls.isActive)
-    
-    if(this.chls.isActive==true)
-    this.chls.addMessage(el,this.UserName);
+    if(el=='')
+    alert("Please enter message!!")
     else
-    this.cs.addMessage(el,this.UserName);
+    {
+        if(this.chls.isActive==true)
+        this.chls.addMessage(el,this.UserName);
+        else
+        this.cs.addMessage(el,this.UserName);
+    }
 }
 getChannelService(){
     return this.chls;

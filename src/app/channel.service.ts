@@ -46,5 +46,11 @@ export class channelService{
     isMember(uname:string   ){
      return this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrSubUsers.find((e)=>e==uname)?true:false;
     }
+    checkDuplicateChannel(ch:string){
+        if(this.arrChannel.find(e=>e.name==ch))
+        return true;
+        else
+        return false;
+    }
 
 }

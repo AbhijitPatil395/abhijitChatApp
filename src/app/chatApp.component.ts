@@ -13,14 +13,24 @@ export class chatComponent{
     chName:string='general';
     constructor(private cs:chatService,private chls:channelService){}
     joinChat(u:string){
+        if(u=='')
+        alert("Please enter the name");
+        else if(this.cs.checkDuplicate(u))
+        alert("User already joined the chat")
+        else
         this.cs.joinUser(u);
     }
 
     addChannel(cn:string){
-        console.log("inside add channnel"+cn)
-        this.chls.addChannel(cn);
-        console.log(this.getChannels())
-        this.arrChannel=this.getChannels();
+        if(cn=='')
+        alert("Please enter the channel name");
+        else if(this.chls.checkDuplicateChannel(cn))
+        alert("Channel already exists with same name")
+        else{
+            this.chls.addChannel(cn);
+            console.log(this.getChannels())
+            this.arrChannel=this.getChannels();
+        }
     }
     addUsers(u:string){
 
