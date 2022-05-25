@@ -11,14 +11,16 @@ Name:  <input #inp type="text" />&nbsp;&nbsp;
         <pm-chatDisplay></pm-chatDisplay>
       </div>
       <div class="col-sm">
+
         <h3>{{chName=="general"?"General Chat":chName}}</h3>
+        Select:
         <select (change)="setChannel($event)">
             <option #general value="general">General</option>
             <option *ngFor="let c of getChannels()" [value]="c.name">{{c.name}}</option>
         </select>
         
         <input #inp2 type="text" />&nbsp;&nbsp;
-          <button class="btn btn-primary" type="button" (click)="addChannel(inp2.value)" >Add</button>
+          <button class="btn btn-primary" type="button" (click)="addChannel(inp2.value)" >Add Channel</button>
         <pm-channel></pm-channel>
       </div>
     </div>
