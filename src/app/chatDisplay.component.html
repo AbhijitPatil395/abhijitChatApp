@@ -1,0 +1,6 @@
+<div class="card text" style="width: 18rem;height: 30rem;overflow-y: auto;">
+    <div class="card-body">
+      <p *ngFor="let m of getMessages()" class="card-text">{{m.messageDate|date:'shortTime'}} :<b> {{m.userName}}</b> :       {{m.messageBody}}</p>
+      
+    </div>
+  </div>

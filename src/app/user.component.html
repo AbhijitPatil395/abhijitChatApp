@@ -1,0 +1,9 @@
+<div class="card text" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{UserName}}</h5>
+      <button *ngIf="getChannelService().isActive && !getChannelService().isMember(UserName)" class="btn btn" type="button" (click)="joinChannel()" >SUBSCRIBE</button>
+      <input #inp type="text" />&nbsp;&nbsp;
+      <button [disabled]="isSendDisabled()" class="btn btn-primary" type="button" (click)="sendMessage(inp.value)" >Send</button>
+      
+    </div>
+  </div>

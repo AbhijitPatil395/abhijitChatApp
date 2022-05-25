@@ -1,0 +1,25 @@
+<h3>Welcome to MyChat app</h3>
+Name:  <input #inp type="text" />&nbsp;&nbsp;
+          <button class="btn btn-primary" type="button" (click)="joinChat(inp.value)" >Join Chat</button>
+<div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <pm-user *ngFor="let u of getUsers()" [UserName]="u"></pm-user>
+      </div>
+      <div class="col-sm">
+          <h3>General Chat</h3>
+        <pm-chatDisplay></pm-chatDisplay>
+      </div>
+      <div class="col-sm">
+        <h3>{{chName=="general"?"General Chat":chName}}</h3>
+        <select (change)="setChannel($event)">
+            <option #general value="general">General</option>
+            <option *ngFor="let c of getChannels()" [value]="c.name">{{c.name}}</option>
+        </select>
+        
+        <input #inp2 type="text" />&nbsp;&nbsp;
+          <button class="btn btn-primary" type="button" (click)="addChannel(inp2.value)" >Add</button>
+        <pm-channel></pm-channel>
+      </div>
+    </div>
+  </div>
