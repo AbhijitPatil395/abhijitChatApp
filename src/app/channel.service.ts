@@ -6,9 +6,22 @@ import { message } from "./message";
 })
 export class channelService{
     private generalch=new Channel();
-    private arrChannel:Channel[]=[];
-    isActive:boolean=false;
-    currentChannel:string='';
+    arrUsers:string[]=[];
+    private arrChannel:Channel[]=[{name:'general',arrMessage:[],arrSubUsers:[]}];
+    isActive:boolean=true;
+    //currentChannel:string='general';
+    joinUser(u:string){
+        this.arrUsers.push(u);
+    }
+    checkDuplicate(u:string):boolean{
+        if(this.arrUsers.find((e)=>e==u))
+        return true;
+        else 
+        return false;
+    }
+    getUsers():string[]{
+        return this.arrUsers;
+    }
     makeActive(){
         this.isActive=true;
     }
@@ -20,17 +33,25 @@ export class channelService{
         ch.name=c;
         this.arrChannel.push(ch);
     }
-    addUser(name:string){
-        this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrSubUsers.push(name);
+    addUser(name:string,ch:string){
+        //this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrSubUsers.push(name);
+        this.arrChannel.find((elem)=>elem.name==ch)?.arrSubUsers.push(name);
        
     }
-    addMessage(msg:string,uname:string){
+    leaveChannel(ch:string,user:string){
+        console.log(this.arrChannel)
+        let arr=this.arrChannel.find((elem)=>elem.name==ch);
+        arr!.arrSubUsers=arr!.arrSubUsers.filter(elem=>elem!=user);
+        console.log(this.arrChannel)
+    }
+    addMessage(msg:string,uname:string,ch:string){
         let m=new message();
         m.messageBody=msg;
         m.messageDate=new Date();
         m.userName=uname;
-        this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrMessage.push(m);
-        
+        console.log("channel service add:"+ch)
+       // this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrMessage.push(m);
+       this.arrChannel.find((elem)=>elem.name==ch)?.arrMessage.push(m);
     }
 
     getChannels():Channel[]{
@@ -38,13 +59,25 @@ export class channelService{
     }
     getChannelMessages(chname:string){
        
-        return this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrMessage;
+        //return this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrMessage;
+        return this.arrChannel.find((elem)=>elem.name==chname)?.arrMessage;
     }
-    setChannel(ch:string){
-        this.currentChannel=ch;
+    // setChannel(ch:string){
+    //     this.currentChannel=ch;
+    // }
+    isMember(uname:string ,ch:string  )
+    {
+        if(ch=='general')
+        return true;
+        else
+     return this.arrChannel.find((elem)=>elem.name==ch)?.arrSubUsers.find((e)=>e==uname)?true:false;
     }
-    isMember(uname:string   ){
-     return this.arrChannel.find((elem)=>elem.name==this.currentChannel)?.arrSubUsers.find((e)=>e==uname)?true:false;
+    isLeavable(uname:string ,ch:string  )
+    {
+        if(ch=='general')
+        return false;
+        else
+     return this.arrChannel.find((elem)=>elem.name==ch)?.arrSubUsers.find((e)=>e==uname)?true:false;
     }
     checkDuplicateChannel(ch:string){
         if(this.arrChannel.find(e=>e.name==ch))

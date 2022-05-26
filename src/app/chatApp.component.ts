@@ -1,24 +1,34 @@
 import { Component } from "@angular/core";
 import { Channel } from "./channel";
 import { channelService } from "./channel.service";
-import { chatService } from "./chat.service";
+import { stateService } from "./state.service";
+
 
 @Component({
     selector:'<pm-chatApp>',
     templateUrl:'./chatApp.component.html',
-    providers:[chatService,channelService]
+    providers:[stateService]
 })
 export class chatComponent{
+    userName:string='';
     arrChannel:Channel[]=[];
     chName:string='general';
-    constructor(private cs:chatService,private chls:channelService){}
+    isLoggedIn:boolean=false;
+    constructor(private chls:channelService,private ss:stateService){}
     joinChat(u:string){
         if(u=='')
         alert("Please enter the name");
-        else if(this.cs.checkDuplicate(u))
+        else if(this.chls.checkDuplicate(u))
         alert("User already joined the chat")
         else
-        this.cs.joinUser(u);
+        {
+        this.chls.joinUser(u);
+        this.isLoggedIn=true;
+        this.userName=u;
+        this.ss.currentChannel='general';
+        this.ss.userName=u;
+        }
+
     }
 
     addChannel(cn:string){
@@ -36,7 +46,7 @@ export class chatComponent{
 
     }
     getUsers():string[]{
-        return this.cs.getUsers();
+        return this.chls.getUsers();
     }
     getChannels():Channel[]{
         return this.chls.getChannels();
@@ -49,7 +59,7 @@ export class chatComponent{
         else
         {
         this.chls.makeActive();
-        this.chls.setChannel(this.chName);
+        //this.chls.setChannel(this.chName);
         }
     }
 }

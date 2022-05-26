@@ -5,12 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { channelComponent } from './channel.component';
 import { chatComponent } from './chatApp.component';
-import { chatDisplay } from './chatDisplay.component';
-import { userComponent } from './user.component';
+
+import { sendComponent } from './send.component';
+import { userChatComponent } from './userChat.component';
 
 @NgModule({
   declarations: [
-    AppComponent,userComponent,chatComponent,chatDisplay,channelComponent
+    AppComponent,chatComponent,channelComponent,userChatComponent,sendComponent
   ],
   imports: [
     BrowserModule,
