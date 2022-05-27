@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { channelService } from "./channel.service";
 
 @Component({
@@ -9,13 +9,17 @@ export class sendComponent{
     constructor(private chls:channelService){}
     @Input() UserName:string='';
     @Input() channelName:string='';
-    sendMessage(msg:string)
+    name:string='';
+    @ViewChild('inp') inputName:any;
+    sendMessage(msg:string,inp:HTMLElement)
     {
         if(msg=='')
         alert("Please enter message!!")
         else
         {
             this.chls.addMessage(msg,this.UserName,this.channelName);
+            this.inputName.nativeElement.value='';
+
         }
     }
     isSendDisabled():boolean{

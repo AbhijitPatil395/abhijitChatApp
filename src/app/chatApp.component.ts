@@ -14,7 +14,7 @@ export class chatComponent{
     arrChannel:Channel[]=[];
     chName:string='general';
     isLoggedIn:boolean=false;
-    constructor(private chls:channelService,private ss:stateService){}
+    constructor(private chls:channelService){}
     joinChat(u:string){
         if(u=='')
         alert("Please enter the name");
@@ -25,8 +25,8 @@ export class chatComponent{
         this.chls.joinUser(u);
         this.isLoggedIn=true;
         this.userName=u;
-        this.ss.currentChannel='general';
-        this.ss.userName=u;
+        //this.ss.currentChannel='general';
+        //this.ss.userName=u;
         }
 
     }

@@ -1,5 +1,5 @@
 <div class="form-outline">
-    <textarea #inp class="form-control" id="textAreaExample2" rows="3"></textarea>
+    <textarea  #inp class="form-control" id="textAreaExample2" rows="3"></textarea>
   </div>
 
-<button [disabled]="isSendDisabled()" type="button" class="btn btn-info btn-rounded float-end" (click)="sendMessage(inp.value)" >Send</button>
+<button [disabled]="isSendDisabled()" type="button" class="btn btn-info btn-rounded float-end" (click)="sendMessage(inp.value,inp)" >Send</button>
