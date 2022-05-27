@@ -9,7 +9,6 @@ export class sendComponent{
     constructor(private chls:channelService){}
     @Input() UserName:string='';
     @Input() channelName:string='';
-    name:string='';
     @ViewChild('inp') inputName:any;
     sendMessage(msg:string,inp:HTMLElement)
     {
@@ -19,7 +18,6 @@ export class sendComponent{
         {
             this.chls.addMessage(msg,this.UserName,this.channelName);
             this.inputName.nativeElement.value='';
-
         }
     }
     isSendDisabled():boolean{

@@ -1,14 +1,13 @@
 import { Component, Injectable, Input, OnInit } from "@angular/core";
 import { channelService } from "./channel.service";
 import { message } from "./message";
-import { stateService } from "./state.service";
 
 @Component({
     selector:'<pm-channel>',
     templateUrl:'./channel.component.html'
 })
 export class channelComponent{
-    constructor(private chls:channelService,private ss:stateService){}
+    constructor(private chls:channelService){}
     @Input() channelName:string='';
     @Input() userName:string='';
     

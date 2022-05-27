@@ -2,7 +2,6 @@ import { Component, Input } from "@angular/core";
 import { Channel } from "./channel";
 import { channelComponent } from "./channel.component";
 import { channelService } from "./channel.service";
-import { stateService } from "./state.service";
 
 @Component({
     selector:'<pm-userChat>',
@@ -15,7 +14,7 @@ export class userChatComponent
     arrChannel:Channel[]=[];
     chName:string='general';
     
-    constructor(private chls:channelService,private ss:stateService){}
+    constructor(private chls:channelService){}
     addChannel(cn:string){
         if(cn=='')
         alert("Please enter the channel name");
@@ -46,8 +45,6 @@ export class userChatComponent
     setChannel(ch:string){
         console.log("inside set channel")
         this.chName=ch;
-        //this.chls.setChannel(this.chName);
-     
     }
     getCurrentChannel():string{
         console.log("in get current chanel"+this.chName)

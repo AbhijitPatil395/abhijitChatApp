@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { channelComponent } from "./channel.component";
 import { channelService } from "./channel.service";
 
@@ -9,9 +9,11 @@ import { channelService } from "./channel.service";
 export class login
 {
     userName:string='';
+    @Output() loginStatus: EventEmitter<{status:boolean,user:string}> = new EventEmitter();
+    @Input() isLoggedIn:boolean=false;
     
-    isLoggedIn:boolean=false;
     constructor(private chls:channelService){}
+
     joinChat(u:string){
         if(u=='')
         alert("Please enter the name");
@@ -20,8 +22,8 @@ export class login
         else
         {
         this.chls.joinUser(u)
-        //this.chls.currentChannel='general';
         this.isLoggedIn=true;
+        this.loginStatus.emit({status:this.isLoggedIn,user:u});
         this.userName=u;
         }
     }

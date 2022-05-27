@@ -1,36 +1,22 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { Channel } from "./channel";
 import { channelService } from "./channel.service";
-import { stateService } from "./state.service";
-
 
 @Component({
     selector:'<pm-chatApp>',
-    templateUrl:'./chatApp.component.html',
-    providers:[stateService]
+    templateUrl:'./chatApp.component.html'
 })
 export class chatComponent{
     userName:string='';
     arrChannel:Channel[]=[];
     chName:string='general';
     isLoggedIn:boolean=false;
+    @ViewChild('pm-login') logCompo:any;
     constructor(private chls:channelService){}
-    joinChat(u:string){
-        if(u=='')
-        alert("Please enter the name");
-        else if(this.chls.checkDuplicate(u))
-        alert("User already joined the chat")
-        else
-        {
-        this.chls.joinUser(u);
-        this.isLoggedIn=true;
-        this.userName=u;
-        //this.ss.currentChannel='general';
-        //this.ss.userName=u;
-        }
-
+    changeLoginStatus($event:any){
+        this.isLoggedIn=$event.status;
+        this.userName=$event.user;
     }
-
     addChannel(cn:string){
         if(cn=='')
         alert("Please enter the channel name");
@@ -43,7 +29,6 @@ export class chatComponent{
         }
     }
     addUsers(u:string){
-
     }
     getUsers():string[]{
         return this.chls.getUsers();
@@ -51,15 +36,7 @@ export class chatComponent{
     getChannels():Channel[]{
         return this.chls.getChannels();
     }
-
     setChannel(event:any){
         this.chName=event.target.value;
-        if(this.chName=="general")
-        this.chls.deactivate();
-        else
-        {
-        this.chls.makeActive();
-        //this.chls.setChannel(this.chName);
-        }
     }
 }
