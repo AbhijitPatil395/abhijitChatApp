@@ -4,7 +4,8 @@ import { message } from "./message";
 
 @Component({
     selector:'<pm-channel>',
-    templateUrl:'./channel.component.html'
+    templateUrl:'./channel.component.html',
+    styleUrls:['./channel.component.css']
 })
 export class channelComponent{
     constructor(private chls:channelService){}
@@ -23,5 +24,8 @@ export class channelComponent{
         }
      else
      return undefined;
+    }
+    getUserName():string{
+        return this.userName;
     }
 }
